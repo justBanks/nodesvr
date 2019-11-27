@@ -17,4 +17,7 @@ app.post('/', function(req, res){
 	res.send(req.body)
 })
 
-app.listen()
+var port = process.env.PORT || 3000
+app.listen(port, "0.0.0.0", function() {
+	console.log(`Listening on Port ${port}`)
+})
