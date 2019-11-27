@@ -12,7 +12,7 @@ app.get('/', function (req, res) {
   res.send({"message": "Hello, world"})
 })
  
-app.post('/', function(req, res){
+app.post('/api', function(req, res){
 	res.setHeader('Content-Type', 'application/json')
 	res.send(req.body)
 })
