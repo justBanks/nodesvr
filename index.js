@@ -1,8 +1,20 @@
 const express = require('express')
-var cors = require('cors')
+//var cors = require('cors')
 const app = express()
 
-app.use(cors())
+//app.use(cors())
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Accept, Authorization, Content-Type, Origin, X-Requested-With')
+  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, PATCH, DELETE, OPTIONS')
+  if ('OPTIONS' === req.method) {
+    res.send(200)
+  }
+  else {
+    next()
+  }
+})
+
 app.use(express.json())
 
 app.get('/', function (req, res) {
@@ -18,7 +30,7 @@ app.post('/api', function(req, res){
 //   res.header('Access-Control-Allow-Origin', '*')
 //   res.header('Access-Control-Allow-Headers', 'Accept, Authorization, Content-Type, Origin, X-Requested-With')
 //   res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, PATCH, DELETE, OPTIONS')
-//   res.send(200);
+//   res.send(200)
 // })
 
 var port = process.env.PORT || 3000
