@@ -29,7 +29,7 @@ app.use(function(err, req, res, next) {
 
 const connected_app = 'https://nodesvr.herokuapp.com'
 
-// var oauth // how should I use this?
+// var oauth // don't need this in 'single' mode
 
 var org = nforce.createConnection({
   environment: 'sandbox',
