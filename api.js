@@ -83,10 +83,10 @@ app.post("/api/contacts", function(req, res) {
     console.log(`Contact inserted for ${newContact.FirstName} ${newContact.LastName} ` + JSON.stringify(resp))
     res.status(201).json(resp)
   })
-
 })
 
+//Generic error handler for use by all endpoints; Keeps this API from returning HTML error pages
 function sendErrorResponse( res, status, reason, message) {
-  console.log("ERROR: " + reason)
-  res.status(status).send(`${reason}\n ${message}`)
+  console.log(`ERROR: ${reason}\n ${message}`)
+  res.status(status).send(`ERROR: ${reason}\n ${message}`)
 }
