@@ -4,21 +4,6 @@ const nforce = require('nforce')
 const app = express()
 app.use(express.json({ type: 'application/json' })) // this type: is required by body-parser
 
-app.use(function(req, res, next) {
-  res.set({
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, Origin, X-Requested-With',
-    'Access-Control-Allow-Methods': 'GET, PUT, POST, PATCH, DELETE, OPTIONS',
-  })
-
-  if (req.method == 'OPTIONS') {
-    res.send(200)
-  }
-  else {
-    next()
-  }
-})
-
 // define error-handling middleware last, after other app.use() and routes calls
 // https://expressjs.com/en/guide/error-handling.html#the-default-error-handler
 app.use(function(err, req, res, next) {
@@ -29,7 +14,7 @@ app.use(function(err, req, res, next) {
 
 const connected_app = 'https://nodesvr.herokuapp.com'
 
-// var oauth // don't need this in 'single' mode
+// var oauth // don't need this in 'single' user mode
 
 var org = nforce.createConnection({
   environment: 'sandbox',
@@ -55,6 +40,15 @@ const port = process.env.PORT || 3000
 
 app.listen(port, '0.0.0.0', function() {
   console.log(`Listening on Port ${port}`)
+})
+
+app.options(function(req, res) {
+  res.set({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, Origin, X-Requested-With',
+    'Access-Control-Allow-Methods': 'GET, PUT, POST, PATCH, DELETE, OPTIONS',
+  })
+  res.send(204)
 })
 
 app.get('/', function (req, res) {
